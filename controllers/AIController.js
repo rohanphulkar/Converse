@@ -21,6 +21,20 @@ export const getData = async (req, res) => {
   }
 };
 
+export const getUserChatsByEmail = async (req, res) => {
+  try {
+    const { email } = req.params;
+    if (!email) {
+      return res.status(400).send("Missing required fields.");
+    }
+    const data = await AI.find({ email });
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Failed to fetch data.");
+  }
+};
+
 export async function addData(req, res) {
   try {
     const { name, email, prompt, response } = req.body;
